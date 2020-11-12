@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>03-06</title>
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+  </head>
+  <body>
+    <div id="example">
+      x : <input type="text" v-model="x" /><br />
+      y : <input type="text" v-model="y" /><br />
+      덧셈 결과 : {{sum}}
+    </div>
+    <script type="text/javascript">
+      var vm = new Vue({
+        el: "#example",
+        data: { x: 0, y: 0, sum: 0 },
+        // Vue.js에서 하나의 데이터를 기반으로 다른 데이터를 변경할 필요가 있을 때 흔히 사용
+        // 할 수 있는 것으로 계산형 속성(Computed Property)이 있습니다만 이외에도 관찰 속성
+        // (Watched Property)이라는 것을 사용할 수 있습니다. 주로 긴 처리 시간이 필요한 비동
+        // 기 처리에 적합하다는 특징을 가지고 있습니다. 우선 watch 옵션을 이용해 관찰 속성을 등
+        // 록합니다.
+
+        // watch 옵션에 등록되는 것은 속성의 이름과 해당 속성이 변경되었을 때 호출할 함수입니
+        // 다. 함수는 인자를 전달받는데, 이것은 변경된 속성의 값입니다. x는 x 속성을 의미
+        // 하며, function(v) {···}는 x 속성이 변경될 때 호출되는 함수입니다. 파라미터 v는 변경
+        // 된 x 속성의 값을 의미합니다.
+        computed: {
+          sum: function () {
+            var result = Number(this.x) + Number(this.y);
+            if (isNaN(result)) this.sum;
+            else return result;
+          },
+        },
+        // 한눈에 보아도 관찰 속성보다 계산형 속성이 더 간단하고 편리해 보입니다. 또한 계산형 속
+        // 성 sum이 참조될 대만 해당 함수가 호출됩니다. 하지만 관찰 속성이 유용한 경우도 있습니
+        // 다. 앞에서도 잠시 말씀드렸지만 긴 시간이 필요한 비동기 처리가 필요할 때는 관찰 속성이
+        // 대단히 유용합니다.
+      });
+    </script>
+  </body>
+</html>

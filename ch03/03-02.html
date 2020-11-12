@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>02-13</title>
+    <title>03-02</title>
     <style>
       #list {
         width: 400px;
@@ -38,6 +38,8 @@
         // computed 옵션에서 지정한 값은 함수였지만 Vue 인스턴스는 프록시 처리하여 마치 속성처럼 취급합니다.
         computed: {
           sum: function () {
+            // 콘솔에 타임스탬프 정보를 찍는 코드
+            console.log(Date.now());
             var n = Number(this.num);
             if (Number.isNaN(n) || n < 1) return 0;
             return ((1 + n) * n) / 2;

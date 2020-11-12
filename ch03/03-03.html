@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>03-03</title>
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+  </head>
+  <body>
+    <div id="example">금액 : <span>{{amount}}원</span></div>
+    <script type="text/javascript">
+      var vm = new Vue({
+        el: "#example",
+        data: { amt: 1234567 },
+        // 계산형 속성을 get, set 메서드로 분리해 작성했습니다.
+        computed: {
+          amount: {
+            // get 메서드는 데이터 속성인 amt 값을 숫자 3자리미다 쉼표(,)를 넣어서 리턴하도록 합니다.
+            get: function () {
+              // 우선 숫자를 문자로 변환하기 위해 String 객체를 생성합니다.
+              var s = new String("" + this.amt);
+              var result = "";
+              var num = 0;
+              // 그 후 맨 뒷자리부터 하나씩 문자를 result 변수에 붙이면서 3자리마다 한번씩 콤마(,)를 넣습니다.
+              // 이렇게 3자리마다 콤마가 들어간 문자열을 리턴합니다.
+              for (var i = s.length - 1; i >= 0; i--) {
+                result = s[i] + result;
+                if (num % 3 == 2 && i !== 0) {
+                  result = "," + result;
+                }
+                num++;
+              }
+              return result;
+            },
+            // set 메서드는 문자열을 입력받으면 쉼표(,)를 제거한 뒤 숫자 값으로 변환하여
+            // amt 데이터 속성에 할당합니다.
+            set: function (amt) {
+              // 입력값이 문자열인지 확인한다.
+              if (typeof amt === "string") {
+                // 문자열에서 쉼표(,)를 제거한 뒤 숫자 값으로 변환한다.
+                // 쉼표를 제거하기 위해 정규표현식(Regular Expression)을 사용했습니다.
+                var result = parseInt(amt.replace(/,/g, ""));
+                // 혹시 숫자로 변환이 불가능한 값이 들어오는 경우가 있을 수 있습니다.
+                // 이런 경우에는 숫자 0을 할당하도록 33행에서 isNaN() 메서드를 사용했습니다.
+                if (isNaN(result)) this.amt = 0;
+                // 숫자로 변환이 불가능한 값이 아니면 amt 데이터 속성에 할당한다.
+                else this.amt = result;
+              }
+              // 숫자 값으로 들어오면 바로 amt 데이터 속성에 할당한다.
+              else if (typeof amt === "number") this.amt = amt;
+            },
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

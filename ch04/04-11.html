@@ -1,0 +1,65 @@
+<!--
+다음은 마우스 버튼 수식어를 사용해 마우스 왼쪽, 오른쪽 버튼을 클릭해서 아이콘의 위치를 이동시키는 간단한 예제입니다.
+위치의 조정을 위해 v-bind 디렉티브를 이용해 style 정보를 설정해 위치를 변경합니다.
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>04-11</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      #example {
+        height: 98vh;
+        min-height: 100%;
+        padding: 10px;
+      }
+    </style>
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+  </head>
+  <body>
+    <!-- 마우스 오른쪽 클릭했을 때 내장 컨텍스트 메뉴가 나타나지 않도록
+       context menu 이벤트에 대해 .prevent 수식어를 적용하였습니다. -->
+    <div
+      id="example"
+      v-on:contextmenu.prevent="ctxStop"
+      @mouseup.left="leftMouse"
+      @mouseup.right="rightMouse"
+    >
+      <div>
+        Left Click : 왼쪽으로<br />
+        Right Click : 오른쪽으로
+      </div>
+      <!-- 스타일 정보를 적용하기 위해 v-bind:style을 사용했습니다. 
+      스타일을 변경해서 이미지의 위치를 바꾸는 것입니다. -->
+      <img
+        src="images/foot.jpg"
+        v-bind:style="{ position:'absolute', left:pos.left + 'px', top:pos.top +'px'}"
+      />
+    </div>
+    <script type="text/javascript">
+      var vm = new Vue({
+        el: "#example",
+        data: {
+          pos: { left: 100, top: 100 },
+        },
+        methods: {
+          ctxStop: function (e) {},
+          leftMouse: function (e) {
+            if (this.pos.left > 30) this.pos.left -= 30;
+            console.log("Move Left!!");
+          },
+          rightMouse: function (e) {
+            this.pos.left += 30;
+            console.log("Move Right!!");
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

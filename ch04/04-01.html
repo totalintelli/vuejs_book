@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>04-01</title>
+    <!-- 디자인 적용을 위해 부트스트랩을 사용 -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <style>
+      .layout1 {
+        margin: 30px 30px 30px 30px;
+      }
+      #deposit {
+        margin: 0px 5px 0px 0px;
+      }
+    </style>
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+  </head>
+  <body>
+    <div id="example" class="container layout1">
+      <!-- amount 데이터 속성을 v-model로 양방향 바인딩하였습니다.
+      사용자가 입력하는 값은 amount에 즉시 반영됩니다. -->
+      <p><input type="text" v-model="amount" class="form-control" /></p>
+      <!-- v-on:click 디렉티브를 이용해 클릭 이벤트 처리를 수행합니다. 
+      예금 버튼을 클릭할 때는 balance(잔고)에 amount(금액)을 누적하고 
+      인출 버튼을 클릭할 때는 amount를 balance에서 차감합니다. -->
+      <!-- v-on 디렉티브는 줄여 쓸 수도 있습니다. @을 쓰면 됩니다. v-on:click 대신에
+      @click으로 코드를 변경해도 정확히 실행됩니다. -->
+
+      <!-- v-on:click="balance += parseInt(amount)" 코드는 실행할 코드를 직접 연결하고 있습니다.
+      이와 같은 코드는 약간의 문제를 안고 있습니다.
+      예를 들어 예금하거나 인출하려는 금액은 마이너스 값을 허용하지 않고, 
+      인출 금액은 계좌 잔고보다 많아서는 안 된다면, 
+      이 처리를 위한 코드를 인라인 이벤트에 모두 작성하기 어렵습니다.
+      그렇기 때문에 현실적인 이벤트 처리 방법이라 하기 힘듭니다.
+
+      Vue.js는 Vue 인스턴스에 등록한 메서드를 이벤트 처리 함수로 연결할 수 있습니다. -->
+      <p>
+        <button
+          id="deposit"
+          @click="balance += parseInt(amount)"
+          class="btn btn-primary"
+        >
+          예금</button
+        ><button
+          id="withdraw"
+          @click="balance -= parseInt(amount)"
+          class="btn btn-primary"
+        >
+          인출
+        </button>
+      </p>
+      <h3>계좌 잔고 : {{balance}}</h3>
+    </div>
+    <script type="text/javascript">
+      var vm = new Vue({
+        el: "#example",
+        data: {
+          amount: 0,
+          balance: 0,
+        },
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,57 @@
+<!-- 기존 HTML에서는 인라인 스타일(HTML 요소의 style 프로퍼티에 CSS를 기술하는 방식)의 사용을 권장하지 않았습니다. Vue.js에서도 마찬가지입니다. 가능하다면 인라인 스타일은 사용하지 않는 것이 바람직합니다. 하지만 인라인 스타일이 필요한 경우도 있으니 사용 방법을 익혀둬야 합니다. 
+인라인 스타일은 v-bind:style로 작성합니다. Style로 지정할 정보는 데이터 속성에 작성합니다. 데이터 속성을 작성할 때 주의 사항은 스타일 속성을 케밥 표기법(kebab casing)이 아닌 카멜 표기법(camel casing)을 사용해야 한다는 점입니다. 또한 스타일 속성과 속성은 세미콜론(;)이 아닌 콤마(,) 기호를 이용해 구분합니다.
+Vue 인스턴스의 데이터로 처리하려면 케밥 표기법을 사용할 수 없습니다. 자바스크립트 언어에서는 변수명, 속성명으로 대쉬(-) 기호를 사용할 수 없기 때문입니다.
+----------------------------------
+|케밥 표기법       |카멜 표기법     |
+|font-size       |fontSize       |
+|background-color|backgroundColor|
+----------------------------------
+사실 이와 같은 관습은 이전 자바스크립트에서도 사용되어 왔습니다. 직접 스타일을 변경할 때 다음과 같은 코드를 작성해왔습니다.
+-	document.getElementById(“a”).style.fontSize=’20pt’; -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>05-02</title>
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+  </head>
+  <body>
+    <div id="example">
+      <!-- mouseover와 mouseout 이벤트를 사용해 버튼에 마우스가 over나 out될 때 34행의 style1 데이터 속성을 변경합니다.  
+        변경한 속성은 v-bind:style=”style1”을 통해 데이터에 바인딩 됩니다. -->
+      <button
+        id="a"
+        v-bind:style="style1"
+        @mouseover.stop="overEvent"
+        @mouseout.stop="outEvent"
+      >
+        테스트
+      </button>
+    </div>
+    <script type="text/javascript">
+      var vm = new Vue({
+        el: "#example",
+        data: {
+          // Style1 데이터 속성을 살펴보면 backgroundColor, textAlign과 같이
+          // 카멜 표기법을 사용하면서 자바스크립트 객체 표기법을 사용하고 있습니다.
+          style1: {
+            backgroundColor: "aqua",
+            border: "solid 1px gray",
+            with: "100px",
+            tetAlign: "center",
+          },
+        },
+        methods: {
+          overEvent: function (e) {
+            this.style1.backgroundColor = "purple";
+            this.style1.color = "yellow";
+          },
+          outEvent: function (e) {
+            this.style1.bakcgroundColor = "aqua";
+            this.style1.color = "black";
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

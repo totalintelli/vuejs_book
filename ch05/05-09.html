@@ -1,0 +1,37 @@
+<!-- 이제 스타일을 이용한 간단한 예제를 작성해보겠습니다. 
+  바로 TodoList 앱입니다. 
+  간단히 할 일 목록을 작성하고 저장, 삭제, 완료 처리를 할 수 있는 기능을 제공합니다.
+  우선 마크업을 작성해봅니다.-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>05-09</title>
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+  </head>
+  <body>
+    <div id="todolistapp">
+      <div id="header" class="header">
+        <h2>Todo List App</h2>
+        <input
+          type="text"
+          class="input"
+          id="task"
+          placeholder="입력 후 엔터!"
+        />
+        <span class="addbutton">추가</span>
+      </div>
+      <ul id="todolist">
+        <li><span>Task 1</span><span class="close">&#x00D7;</span></li>
+        <!-- 할 일 복록 중에서 완료된 것은 Task2와 같이 나타날 것입니다.
+        v-for 디렉티브와 함께 v-if, v-bind:class를 적용해야 합니다. -->
+        <li class="checked">
+          <span>Task 2</span><span>(완료)</span
+          ><span class="close">&#x00D7;</span>
+        </li>
+        <li><span>Task 3</span><span>&#x00D7;</span></li>
+      </ul>
+    </div>
+  </body>
+</html>

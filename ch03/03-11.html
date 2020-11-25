@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>03-11</title>
+    <style>
+      #list {
+        width: 400px;
+        border: 1px solid black;
+        border-collapse: collapse;
+      }
+      #list td,
+      #list th {
+        border: 1px solid black;
+        text-align: center;
+      }
+      #list > thead > tr {
+        color: yellow;
+        background-color: purple;
+      }
+      .divider {
+        height: 2px;
+        background-color: gray;
+      }
+    </style>
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+  </head>
+  <body>
+    <div id="example">
+      <input type="text" v-model="num" /><br />
+      1부터 입력된 수까지 합 : <span>{{sum}}</span>
+    </div>
+    <script type="text/javascript">
+      // 1부터 입력된 수까지의 합 구하기
+      var vmSum = new Vue({
+        el: "#example",
+        data: { num: 0 },
+        // 실행해보면 created 이벤트가 발생한 뒤 데이터가 변경될 때마다
+        // updated 훅이 실행되는 것을 확인할 수 있습니다.
+        created: function () {
+          console.log("Created!!");
+        },
+        updated: function () {
+          console.log("updated!");
+          console.log(this.num);
+        },
+
+        // 일반적인 경우라면 watch 옵션을 사용하는 관찰 속성보다는 계산형 속성이 더 편리합니다.
+        // 하지만 긴 작업 시간이 필요한 비동기 처리가 요구되는 경우에는 관찰 속성을 사용해야 합니다.
+
+        // method 옵션은 Vue 인스턴스에 정의할 수 있는 기능입니다.
+        // 등록된 메서드는 콧수염(Mastache) 표현식의 템플릿 문자열로도 사용할 수 있으며,
+        // 이벤트에서도 사용이 가능합니다.
+        // computed 옵션에서 지정한 값은 함수였지만 Vue 인스턴스는 프록시 처리하여 마치 속성처럼 취급합니다.
+        computed: {
+          sum: function () {
+            // 콘솔에 타임스탬프 정보를 찍는 코드
+            console.log(Date.now());
+            var n = Number(this.num);
+            if (Number.isNaN(n) || n < 1) return 0;
+            return ((1 + n) * n) / 2;
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

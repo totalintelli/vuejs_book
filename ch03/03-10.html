@@ -3,7 +3,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>03-07</title>
+    <title>03-08</title>
     <style>
       #list {
         width: 600px;
@@ -19,10 +19,14 @@
         color: yellow;
         background-color: purple;
       }
+      /* 콧수염(Mustache) 표현식의 템플릿 문자열이 잠깐 나타났다가 사라지는 것을 보이지 않게 처리 */
+      [v-cloak] {
+        display: none;
+      }
     </style>
   </head>
   <body>
-    <div id="example">
+    <div id="example" v-cloak>
       <p>
         이름 :
         <input type="text" v-model="name" placeholder="두 자 이상 입력하세요" />
@@ -88,6 +92,8 @@
         // 비동기 처리가 필요한 경우라면 관찰 속성을 사용하거나 이벤트 처리 방법을 적용하면 됩니다.
         // 이벤트 처리에 대해서는 다음 장에서 살펴보겠습니다.
         // Vue 객체 내에 관찰자(Watcher)는 name 속성의 변화를 감지하여 name 함수를 호출합니다.
+
+        // 타이핑을 할 때마다 서버와 통신하여 데이터를 받아오도록 만든 것입니다.
         watch: {
           name: function (val) {
             // 다시 두 자 이상이 입력되었다면 fetchContacts 함수를 호출합니다.

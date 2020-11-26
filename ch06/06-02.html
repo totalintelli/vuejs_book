@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>06-02</title>
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+</head>
+<script type="text/javascript">
+    // 작성된 컴포넌트를 사용할 때는 등록한 태그명을 사용합니다. 
+    Vue.component('hello-component', {
+        // Vue 컴포넌트의 template 옵션에 템플릿 문자열을 사용했습니다.
+        // 이와 같은 방식을 인라인 템플릿(inline template)이라고 합니다.
+        // 사실 이 방법은 그리 권장되지 않습니다만 
+        // 처음 작성하는 예제이므로 이 방식을 사용했습니다.
+
+        // 컴포넌트를 작성할 때 template 옵션을 설정하고 있습니다. 
+        // template 옵션에 적용할 수 있는 값은 인라인 템플릿 방식으로 템플릿 문자열을 직접 지정해도 되지만,
+        // 템플릿 문자열을 포함하고 있는 <template> 태그, <script type="text/x-template"> 태그의 id를 지정해도 됩니다.
+        template: '<div>hello world</div>'
+    })
+</script>
+
+<body>
+</body>
+<script type="text/javascript">
+</script>
+
+</html>

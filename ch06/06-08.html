@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>06-08</title>
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+</head>
+<!-- 컴포넌트를 작성 -->
+<script type="text/javascript">
+    Vue.component('option-component', {
+        template: '<option>hello</option>'
+    })
+</script>
+<script type="text/x-template" id="selectTemplate">
+    <select>
+        <option-component></option-component>
+        <option-component></option-component>
+    </select>
+</script>
+<script type="text/javascript">
+    Vue.component('select-component', {
+        template: '#selectTemplate'
+    })
+</script>
+
+<body>
+    <div id="app">
+        <select-component></select-component>
+    </div>
+</body>
+<script type="text/javascript">
+    // Vue.config.devtools 전역 값을 true로 지정한 것은 크롬 브라우저에 설치한 Vue devtools를 사용하기 위해서입니다.
+    Vue.config.devtools = true;
+    var v = new Vue({
+        el: '#app'
+    })
+</script>
+
+</html>

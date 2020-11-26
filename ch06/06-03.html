@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>06-03</title>
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <hello-component></hello-component>
+        <hello-component></hello-component>
+        <hello-component></hello-component>
+    </div>
+</body>
+<script type="text/javascript">
+    // Vue.config.devtools 전역 값을 true로 지정한 것은 크롬 브라우저에 설치한 Vue devtools를 사용하기 위해서입니다.
+    // 그리고 Vue devtools는 반드시 웹 서버를 통해서 실행해야만 사용할 수 있기 때문에 추가적으로 live-server라는 도구를 설치해야 합니다.
+    // 향후 Webpack 개발 서버를 이용하거나 Node.js + Express로 웹서버를 직접 기동하게 되면 사용할 필요가 없습니다.
+
+    // live-server를 설치하기 위해서 다음의 명령어를 콘솔에서 실행합니다. 한 번만 설치하면 어디서나 사용할 수 있도록 글로벌 옵션(-g)을 부여하여 설치합니다.
+
+    // npm install -g live-server (Windows)
+    // sudo npm install -g live-server (macOS)
+
+    // 설치과 완료되면 예제를 작성한 VSCode에서 CTRL + ` 키를 누르거나 [보기] → [통합 터미널]을 열어서 live-server를 실행합니다. 
+    // "live-server"를 커맨트 창에 입력한 후 엔터 키를 누릅니다.
+
+    // live-server는 실행한 디렉터리를 웹서버 루트 디렉터리로 자동으로 설정합니다. 
+    // 또한 Hot Reloading을 지원하므로 소스 코드를 변경하고 저장하면 브라우저 화면이 즉시 변경됩니다.
+
+    // live-server를 실행하면 브라우저가 즉시 실행됩니다. 브라우저 화면에서 작성한 html 파일을 클릭하여 열면 됩니다. 
+    // 그리고 크롬 브라우저의 개발자 도구를 열고 Vue 탭을 열어보면 컴포넌트의 계층 구조를 확인할 수 있습니다.
+    Vue.config.devtools = true;
+    var v = new Vue({
+        el: '#app'
+    })
+</script>
+
+</html>

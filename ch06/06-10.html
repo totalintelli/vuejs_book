@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>06-10</title>
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+</head>
+<template id="timeTemplate">
+    <div>
+        <span>{{nowTS}}</span>
+        <button v-on:click="timeClick">현재 시간</button>
+    </div>
+</template>
+<script type="text/javascript">
+    Vue.component('time-component', {
+        template: '#timeTemplate',
+        // data 옵션에 함수를 지정하는 이유는 동일한 컴포넌트가 여러 번 사용되더라도
+        // 동일한 객체를 가르키는 것이 아니라 함수가 호출될 때마다 만들어진 객체가 리턴되기 때문입니다.
+        // 매번 만들어진 객체가 리턴되기 때문에 서로 다른 객체를 참조합니다.
+        data: function () {
+            return { nowTS: 0 }
+        },
+        // 버튼을 클릭하면 현재 시각의 타임스탬프 값이 찍힐 것입니다.
+        methods: {
+            timeClick: function (e) {
+                this.nowTS = (new Date()).getTime();
+            }
+        }
+    })
+</script>
+
+<body>
+    <div id="app">
+        <time-component></time-component>
+        <time-component></time-component>
+    </div>
+</body>
+<script type="text/javascript">
+    // Vue.config.devtools 전역 값을 true로 지정한 것은 크롬 브라우저에 설치한 Vue devtools를 사용하기 위해서입니다.
+    Vue.config.devtools = true;
+    var v = new Vue({
+        el: '#app'
+    })
+</script>
+
+</html>

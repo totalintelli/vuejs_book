@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>06-06</title>
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+</head>
+<!-- 컴포넌트를 작성 -->
+<script type="text/javascript">
+    Vue.component('option-component', {
+        template: '<option>hello</option>'
+    })
+</script>
+
+<body>
+    <div id="app">
+        <!-- 컴포넌트를 사용하고 있습니다. 
+        하지만 <select> 태그 안에서 <option-component>라는 태그를 사용할 수 있다라는 것이 브라우저에 등록되어 있지 않습니다. 
+        브라우저는 이 태그들을 구문 분석하는 작업을 먼저 수행한 후 Vue 컴포넌트를 렌더링합니다.
+        구문 분석 단계에서 DOM 요소가 올바르지 않다고 판단하기 때문에, 제대로 렌더링하지 못하는 문제가 발생합니다. 
+        <script type="text/x-template"> 태그 안에서 사용되거나 .vue 확장자를 사용하는 단일 파일 컴포넌트(Single File Component)를 
+        작성하는 경우에는 굳이 is 특성을 사용하지 않아도 됩니다.-->
+        <select>
+            <option-component></option-component>
+            <option-component></option-component>
+        </select>
+    </div>
+</body>
+<script type="text/javascript">
+    // Vue.config.devtools 전역 값을 true로 지정한 것은 크롬 브라우저에 설치한 Vue devtools를 사용하기 위해서입니다.
+    Vue.config.devtools = true;
+    var v = new Vue({
+        el: '#app'
+    })
+</script>
+
+</html>

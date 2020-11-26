@@ -1,0 +1,62 @@
+<!-- 이제 스타일을 이용한 간단한 예제를 작성해보겠습니다. 
+  바로 TodoList 앱입니다. 
+  간단히 할 일 목록을 작성하고 저장, 삭제, 완료 처리를 할 수 있는 기능을 제공합니다.
+  우선 마크업을 작성해봅니다.-->
+
+<!-- 이벤트 버스 객체를 이용하는 부분에 집중하기 위해서 두 개의 컴포넌트로만 나누어 보았습니다. 
+  값을 입력하고 추가 버튼을 클릭하는 부분(input-component)과 Todolist를 나타내는 부분(list-component) 사이에 데이터 상호작용이 필요합니다.
+  할 일을 추가하면 이벤트 버스 객체를 이용해 데이터를 추가하고 그 데이터는 다시 list-component를 통해서 나타나야 합니다.
+<!DOCTYPE html> -->
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>06-25</title>
+  <!-- 공용 스타일 시작 -->
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    .header {
+      background-color: purple;
+      padding: 30px 30px;
+      color: yellow;
+      text-align: center;
+    }
+
+    .header:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+  </style>
+  <!-- 공용 스타일 끝 -->
+  <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+</head>
+<!-- 이벤트 버스 객체 시작 -->
+<script type="text/javascript">
+  // 이벤트 버스 객체를 작성했습니다. 
+  // 별도의 데이터 정보를 가지지 않고, 순수하게 이벤트를 통해서 컴포넌트 간의 정보 교환만을 위해 사용합니다.
+  var eventBus = new Vue();
+</script>
+<!-- 이벤트 버스 객체 끝 -->
+
+<body>
+  <div id="todolistapp">
+    <div id="header" class="header">
+      <h2>Todo List App</h2>
+
+    </div>
+
+  </div>
+  <script type="text/javascript">
+    Vue.config.devtools = true;
+    var vm = new Vue({
+      el: "#todolistapp",
+    });
+  </script>
+</body>
+
+</html>

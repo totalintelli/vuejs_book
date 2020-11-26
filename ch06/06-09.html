@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>06-09</title>
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+</head>
+<template id="timeTemplate">
+    <div>
+        <span>{{nowTS}}</span>
+        <button v-on:click="timeClick">현재 시간</button>
+    </div>
+</template>
+<script type="text/javascript">
+    Vue.component('time-component', {
+        template: '#timeTemplate',
+        // time-component의 data 옵션이 일반적인 객체입니다.
+        // 실행해보면 "ReferenceError: nowTS is not defined" 오류가 발생합니다.
+        // 정상적으로 렌더링 되려면 data 옵션에 함수가 주어져야 합니다.
+        // 정확하게 표현하자면 '함수가 호출되어 리턴된 객체가 data 옵션에 주어진다'라고 할 수 있습니다.
+        data: { nowTS: 0 },
+        methods: {
+            timeClick: function (e) {
+                this.nowTS = (newDate()).getTime();
+            }
+        }
+    })
+</script>
+
+<body>
+    <div id="app">
+        <time-component></time-component>
+        <time-component></time-component>
+    </div>
+</body>
+<script type="text/javascript">
+    // Vue.config.devtools 전역 값을 true로 지정한 것은 크롬 브라우저에 설치한 Vue devtools를 사용하기 위해서입니다.
+    Vue.config.devtools = true;
+    var v = new Vue({
+        el: '#app'
+    })
+</script>
+
+</html>

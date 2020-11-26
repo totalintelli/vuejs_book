@@ -1,0 +1,46 @@
+<!-- Vue 컴포넌트들이 부모-자식 관계로 형성되었을 때 각 컴포넌트 내부의 데이터는 캡슐화되기 때문에 다른 컴포넌트나 앱에서 접근할 수 없습니다.
+따라서 부모 컴포넌트에서 자식 컴포넌트로 필요한 정보를 전달하기 위해서는 속성(props)을 이용해야 합니다. 
+주의할 점은 부모에서 자식으로 단방향으로만 전달할 수 있다는 것입니다.
+
+반대로 자식 컴포넌트에서 부모 컴포넌트로의 전달은 이벤트를 이용합니다. 
+자식 컴포넌트에서 사용자 정의 이벤트를 필요한 정보와 함께 발신(emit)하면 부모 컴포넌트에서 v-on 디렉티브를 이용해서 이벤트를 처리합니다. -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>06-12</title>
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+</head>
+<template id="listTemplate">
+    <!-- 아래 스크립트 태그에 있는 'message'를 화면에 출력한다. -->
+    <li>{{message}}</li>
+</template>
+<script type="text/javascript">
+    Vue.component('list-component', {
+        template: '#listTemplate',
+        // list-component 컴포넌트를 작성하면서 message라는 이름의 속성(props)을 정의했습니다.
+        props: ['message']
+    })
+</script>
+
+<body>
+    <div id="app">
+        <ul>
+            <!-- 속성을 통해 전달하기 위해서는 컴포넌트를 사용할 때 특성(Attribute)처럼 전달합니다. -->
+            <list-component message="Hello"></list-component>
+            <list-component message="씬짜오"></list-component>
+            <list-component message="니하오마"></list-component>
+        </ul>
+    </div>
+</body>
+<script type="text/javascript">
+    // Vue.config.devtools 전역 값을 true로 지정한 것은 크롬 브라우저에 설치한 Vue devtools를 사용하기 위해서입니다.
+    Vue.config.devtools = true;
+    var v = new Vue({
+        el: '#app'
+    })
+</script>
+
+</html>

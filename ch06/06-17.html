@@ -1,0 +1,100 @@
+<!-- Vue 컴포넌트들이 부모-자식 관계로 형성되었을 때 각 컴포넌트 내부의 데이터는 캡슐화되기 때문에 다른 컴포넌트나 앱에서 접근할 수 없습니다.
+따라서 부모 컴포넌트에서 자식 컴포넌트로 필요한 정보를 전달하기 위해서는 속성(props)을 이용해야 합니다. 
+주의할 점은 부모에서 자식으로 단방향으로만 전달할 수 있다는 것입니다.
+
+반대로 자식 컴포넌트에서 부모 컴포넌트로의 전달은 이벤트를 이용합니다. 
+자식 컴포넌트에서 사용자 정의 이벤트를 필요한 정보와 함께 발신(emit)하면 부모 컴포넌트에서 v-on 디렉티브를 이용해서 이벤트를 처리합니다. -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>06-17</title>
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+</head>
+<style>
+    #list {
+        width: 400px;
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+
+    #list td,
+    #list th {
+        border: 1px solid black;
+        text-align: center;
+    }
+
+    #list>thead>tr {
+        color: yellow;
+        background-color: purple;
+    }
+</style>
+<!-- 컴포넌트 시작 -->
+<template id="listTemplate">
+    <div>
+        <table id="list">
+            <thead>
+                <tr>
+                    <th>번호</th>
+                    <th>이름</th>
+                    <th>전화번호</th>
+                    <th>주소</th>
+                </tr>
+            </thead>
+            <tbody id="contacts">
+                <!-- contactlist-component는 전달받은 contacts 속성값을 이용해 
+                v-for 디렉티브를 활용해 반복하며 렌더링합니다.
+                컴포넌트를 잘 만들고 활용하면 반복되는 코드를 줄이고 
+                재사용성을 크게 높일 수 있습니다. -->
+                <tr v-for="contact in contacts">
+                    <td>{{contact.no}}</td>
+                    <td>{{contact.name}}</td>
+                    <td>{{contact.tel}}</td>
+                    <td>{{contact.address}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</template>
+<script type="text/javascript">
+    Vue.component('contactlist-component', {
+        template: '#listTemplate',
+        // contacts라는 이름의 속성을 정의하였습니다.
+        props: ['contacts']
+    })
+</script>
+<!-- 컴포넌트 끝-->
+
+<body>
+    <div id="app">
+        <h1>예방 접종</h1>
+        <hr>
+        <h3>1차 대상자 : 5월 1~3일</h3>
+        <!-- contactlist-component에 v-bind 디렉티브를 이용해 각각 list1, list2 배열 데이터를 전달합니다. -->
+        <contactlist-component :contacts="list1"></contactlist-component>
+        <h3>2차 대상자 : 5월 13~15일</h3>
+        <contactlist-component :contacts="list2"></contactlist-component>
+    </div>
+</body>
+<script type="text/javascript">
+    // Vue.config.devtools 전역 값을 true로 지정한 것은 크롬 브라우저에 설치한 Vue devtools를 사용하기 위해서입니다.
+    Vue.config.devtools = true;
+    var v = new Vue({
+        el: '#app',
+        data: {
+            list1: [
+                { "no": 97, "name": "Kalisa Rogers", "tel": "010-3456-8296", "address": "서울시" },
+                { "no": 96, "name": "Jesse James", "tel": "010-3456-8295", "address": "서울시" },
+                { "no": 95, "name": "Jennifer Walker", "tel": "010-3456-8294", "address": "서울시" },
+            ],
+            list2: [
+                { "no": 82, "name": "Zennon Howard", "tel": "010-3456-8281", "address": "서울시" },
+                { "no": 81, "name": "Kylie Allen", "tel": "010-3456-8280", "address": "서울시" },
+            ],
+        }
+    })
+</script>
+
+</html>

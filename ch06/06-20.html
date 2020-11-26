@@ -1,0 +1,79 @@
+<!-- search-contact-component 부모 컴포넌트 내부에 자식 컴포넌트로써 search-component와 contactlist-component가 포함된 구조입니다.
+부모와 자식 컴포넌트 사이에 props와 event로 상호작용하도록 작성합니다.
+
+search-component에서 keyup 이벤트가 발생하면 search-contact-component로 이벤트를 발신합니다.
+이 때 텍스트 박스에 입력된 문자열을 인자로 담아 부모 컴포넌트로 전달하게 됩니다.
+전달받은 데이터를 이용해 연락처 서비스 API(http://sample.bmaster.kro.kr/contacts_long/search/검색어)에 요청하여 이름이 포함된 연락처 목록을 받아옵니다.
+
+받아온 연락처 목록은 부모 컴포넌트(search-contact-componentt)의 내부 상태로서 contactlist 데이터 옵션에 저장되고, 이것을 contacts 속성(props)을 통해 contactlist-component 컴포넌트로 전달합니다. -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>06-20</title>
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es6-promise/4.1.1/es6-promise.auto.min.js"></script>
+</head>
+<!-- contactlist-component 시작 -->
+<style>
+    #list {
+        width: 400px;
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+
+    #list td,
+    #list th {
+        border: 1px solid black;
+        text-align: center;
+    }
+
+    #list>thead>tr {
+        color: yellow;
+        background-color: purple;
+    }
+</style>
+<template id="listTemplate">
+    <div>
+        <table id="list">
+            <thead>
+                <tr>
+                    <th>번호</th>
+                    <th>이름</th>
+                    <th>전화번호</th>
+                    <th>주소</th>
+                </tr>
+            </thead>
+            <tbody id="contacts">
+                <tr v-for="contact in contacts">
+                    <td>{{contact.no}}</td>
+                    <td>{{contact.name}}</td>
+                    <td>{{contact.tel}}</td>
+                    <td>{{contact.address}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</template>
+<script type="text/javascript">
+    // 첫 번째 컴포넌트는 contactlist-component입니다.
+    // 이 컴포넌트는 자체 상태(데이터 옵션)를 가지고 있지 않습니다.
+    // 따라서 반드시 외부에서 상태를 제공받아야 하므로 아래와 같이 속성(props)을 제공받아야 합니다.
+    Vue.component('contactlist-component', {
+        template: '#listTemplate',
+        props: ['contacts']
+    })
+</script>
+<!-- contactlist-component 끝 -->
+
+<body>
+</body>
+<script type="text/javascript">
+    Vue.config.devtools = true;
+</script>
+
+</html>
